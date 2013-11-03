@@ -1,14 +1,18 @@
 Summary:	High-level C binding for 0MQ
 Summary(pl.UTF-8):	Wysokopoziomowe wiązania C dla 0MQ
 Name:		czmq
-Version:	1.4.1
+Version:	2.0.2
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://download.zeromq.org/%{name}-%{version}.tar.gz
-# Source0-md5:	b54bcf101e5e23285b8ff0ad80a58c41
+# Source0-md5:	8077f31d50eb8490c8a1bc2860a9e69e
 URL:		http://zeromq.org/
-BuildRequires:	zeromq-devel
+BuildRequires:	asciidoc
+BuildRequires:	libsodium-devel
+BuildRequires:	xmlto
+BuildRequires:	zeromq-devel >= 4
+Requires:	zeromq >= 4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -22,7 +26,7 @@ Summary:	Header files for CZMQ library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki CZMQ
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	zeromq-devel
+Requires:	zeromq-devel >= 4
 
 %description devel
 Header files for CZMQ library.
@@ -60,12 +64,15 @@ rm -rf $RPM_BUILD_ROOT
 # obsoleted by pkg-config
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libczmq.la
 
+# too common name
+%{__mv} $RPM_BUILD_ROOT%{_bindir}/{makecert,czmq_makecert}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS NEWS
+%attr(755,root,root) %{_bindir}/czmq_makecert
 %attr(755,root,root) %{_bindir}/czmq_selftest
 %attr(755,root,root) %{_libdir}/libczmq.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libczmq.so.1
@@ -75,9 +82,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libczmq.so
 %{_includedir}/czmq
 %{_pkgconfigdir}/libczmq.pc
+%{_mandir}/man3/zauth.3*
 %{_mandir}/man3/zbeacon.3*
+%{_mandir}/man3/zcert.3*
+%{_mandir}/man3/zcertstore.3*
+%{_mandir}/man3/zchunk.3*
 %{_mandir}/man3/zclock.3*
+%{_mandir}/man3/zconfig.3*
 %{_mandir}/man3/zctx.3*
+%{_mandir}/man3/zdir.3*
 %{_mandir}/man3/zfile.3*
 %{_mandir}/man3/zframe.3*
 %{_mandir}/man3/zhash.3*
@@ -85,11 +98,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/zloop.3*
 %{_mandir}/man3/zmsg.3*
 %{_mandir}/man3/zmutex.3*
+%{_mandir}/man3/zpoller.3*
 %{_mandir}/man3/zsocket.3*
 %{_mandir}/man3/zsockopt.3*
 %{_mandir}/man3/zstr.3*
 %{_mandir}/man3/zsys.3*
 %{_mandir}/man3/zthread.3*
+%{_mandir}/man3/ztree.3*
 %{_mandir}/man7/czmq.7*
 
 %files static
