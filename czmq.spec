@@ -1,12 +1,12 @@
 Summary:	High-level C binding for 0MQ
 Summary(pl.UTF-8):	Wysokopoziomowe wiązania C dla 0MQ
 Name:		czmq
-Version:	2.0.2
+Version:	2.0.3
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://download.zeromq.org/%{name}-%{version}.tar.gz
-# Source0-md5:	8077f31d50eb8490c8a1bc2860a9e69e
+# Source0-md5:	a83cbea8c2687813e1343d711589ec15
 URL:		http://zeromq.org/
 BuildRequires:	asciidoc
 BuildRequires:	libsodium-devel
