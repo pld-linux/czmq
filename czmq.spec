@@ -1,15 +1,16 @@
 Summary:	High-level C binding for 0MQ
 Summary(pl.UTF-8):	Wysokopoziomowe wiązania C dla 0MQ
 Name:		czmq
-Version:	2.0.3
+Version:	2.2.0
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://download.zeromq.org/%{name}-%{version}.tar.gz
-# Source0-md5:	a83cbea8c2687813e1343d711589ec15
+# Source0-md5:	b9c060727275a98e866d4db26345c2d8
 URL:		http://zeromq.org/
 BuildRequires:	asciidoc
 BuildRequires:	libsodium-devel
+BuildRequires:	libuuid-devel
 BuildRequires:	xmlto
 BuildRequires:	zeromq-devel >= 4
 Requires:	zeromq >= 4
@@ -52,6 +53,7 @@ Statyczna biblioteka CZMQ.
 %build
 # use include subdir - file names could be too common (zfile.h etc.)
 %configure \
+	--disable-silent-rules \
 	--includedir=%{_includedir}/czmq
 %{__make}
 
@@ -66,6 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # too common name
 %{__mv} $RPM_BUILD_ROOT%{_bindir}/{makecert,czmq_makecert}
+
+# gsl scripts, most likely shouldn't be installed
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/*.gsl
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -90,21 +96,27 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/zclock.3*
 %{_mandir}/man3/zconfig.3*
 %{_mandir}/man3/zctx.3*
+%{_mandir}/man3/zdigest.3*
 %{_mandir}/man3/zdir.3*
+%{_mandir}/man3/zdir_patch.3*
 %{_mandir}/man3/zfile.3*
 %{_mandir}/man3/zframe.3*
 %{_mandir}/man3/zhash.3*
 %{_mandir}/man3/zlist.3*
+%{_mandir}/man3/zlog.3*
 %{_mandir}/man3/zloop.3*
+%{_mandir}/man3/zmonitor.3*
 %{_mandir}/man3/zmsg.3*
 %{_mandir}/man3/zmutex.3*
 %{_mandir}/man3/zpoller.3*
+%{_mandir}/man3/zproxy.3*
+%{_mandir}/man3/zrex.3*
 %{_mandir}/man3/zsocket.3*
 %{_mandir}/man3/zsockopt.3*
 %{_mandir}/man3/zstr.3*
 %{_mandir}/man3/zsys.3*
 %{_mandir}/man3/zthread.3*
-%{_mandir}/man3/ztree.3*
+%{_mandir}/man3/zuuid.3*
 %{_mandir}/man7/czmq.7*
 
 %files static
