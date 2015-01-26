@@ -1,0 +1,11 @@
+--- czmq-2.2.0/configure.ac~	2014-04-23 14:46:58.000000000 +0200
++++ czmq-2.2.0/configure.ac	2015-01-26 20:11:55.802471286 +0100
+@@ -295,7 +295,7 @@
+ 
+ # These options are GNU compiler specific.
+ if test "x$GCC" = "xyes"; then
+-    CPPFLAGS="-pedantic -Werror -Wall ${CPPFLAGS}"
++    CPPFLAGS="-pedantic -Wall ${CPPFLAGS}"
+ fi
+ 
+ AM_CONDITIONAL(ON_MINGW, test "x$czmq_on_mingw32" = "xyes")

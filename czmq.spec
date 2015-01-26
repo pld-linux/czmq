@@ -7,6 +7,7 @@ License:	LGPL v3+
 Group:		Libraries
 Source0:	http://download.zeromq.org/%{name}-%{version}.tar.gz
 # Source0-md5:	b9c060727275a98e866d4db26345c2d8
+Patch0:		no-Werror.patch
 URL:		http://zeromq.org/
 BuildRequires:	asciidoc
 BuildRequires:	libsodium-devel
@@ -49,6 +50,7 @@ Statyczna biblioteka CZMQ.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 # use include subdir - file names could be too common (zfile.h etc.)
