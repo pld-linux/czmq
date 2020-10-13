@@ -7,7 +7,7 @@ Summary:	High-level C binding for 0MQ
 Summary(pl.UTF-8):	Wysokopoziomowe wiązania C dla 0MQ
 Name:		czmq
 Version:	4.2.0
-Release:	1
+Release:	2
 License:	LGPL v3+
 Group:		Libraries
 #Source0Download: https://github.com/zeromq/czmq/releases
@@ -114,6 +114,7 @@ Wiązania Pythona 3 do CZMQ - wysokopoziomowego wiązania C do 0MQ.
 # use include subdir - file names could be too common (zfile.h etc.)
 %configure \
 	--enable-bindings-python \
+	--enable-drafts \
 	--disable-silent-rules \
 	--includedir=%{_includedir}/czmq
 %{__make}
