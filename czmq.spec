@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_without	python2	# CPython 2.x module
 %bcond_without	python3	# CPython 3.x module
+%bcond_without	systemd	# systemd
 
 Summary:	High-level C binding for 0MQ
 Summary(pl.UTF-8):	Wysokopoziomowe wiązania C dla 0MQ
@@ -33,11 +34,11 @@ BuildRequires:	python3-setuptools
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-BuildRequires:	systemd-devel >= 1:200
+%{?with_systemd:BuildRequires:	systemd-devel >= 1:200}
 BuildRequires:	xmlto
 BuildRequires:	zeromq-devel >= 4
 Requires:	curl-libs >= 7.28.0
-Requires:	systemd-libs >= 1:200
+%{?with_systemd:Requires:	systemd-libs >= 1:200}
 Requires:	zeromq >= 4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -56,7 +57,7 @@ Requires:	curl-devel >= 7.28.0
 Requires:	libmicrohttpd-devel
 Requires:	libuuid-devel
 Requires:	lz4-devel
-Requires:	systemd-devel >= 1:200
+%{?with_systemd:Requires:	systemd-devel >= 1:200}
 Requires:	zeromq-devel >= 4
 
 %description devel
@@ -116,7 +117,8 @@ Wiązania Pythona 3 do CZMQ - wysokopoziomowego wiązania C do 0MQ.
 	--enable-bindings-python \
 	--enable-drafts \
 	--disable-silent-rules \
-	--includedir=%{_includedir}/czmq
+	--includedir=%{_includedir}/czmq \
+	%{!?with_systemd:--with-libsystemd=no}
 %{__make}
 
 cd bindings/python
