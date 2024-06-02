@@ -7,13 +7,14 @@
 Summary:	High-level C binding for 0MQ
 Summary(pl.UTF-8):	Wysokopoziomowe wiązania C dla 0MQ
 Name:		czmq
-Version:	4.2.0
-Release:	6
+Version:	4.2.1
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
 #Source0Download: https://github.com/zeromq/czmq/releases
 Source0:	https://github.com/zeromq/czmq/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	7e09997db6ac3b25e8ed104053040722
+# Source0-md5:	471e9ec120fc66a2fe2aae14359e3cfa
+Patch0:		%{name}-nss.patch
 Patch1:		%{name}-link.patch
 URL:		http://zeromq.org/
 BuildRequires:	asciidoc
@@ -24,6 +25,7 @@ BuildRequires:	libmicrohttpd-devel
 BuildRequires:	libtool
 BuildRequires:	libuuid-devel
 BuildRequires:	lz4-devel
+BuildRequires:	nss-devel
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.5
 BuildRequires:	python-setuptools
@@ -57,6 +59,7 @@ Requires:	curl-devel >= 7.28.0
 Requires:	libmicrohttpd-devel
 Requires:	libuuid-devel
 Requires:	lz4-devel
+Requires:	nss-devel
 %{?with_systemd:Requires:	systemd-devel >= 1:200}
 Requires:	zeromq-devel >= 4
 
@@ -104,6 +107,7 @@ Wiązania Pythona 3 do CZMQ - wysokopoziomowego wiązania C do 0MQ.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 
 %build
@@ -199,6 +203,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/zloop.3*
 %{_mandir}/man3/zmonitor.3*
 %{_mandir}/man3/zmsg.3*
+%{_mandir}/man3/zosc.3*
 %{_mandir}/man3/zpoller.3*
 %{_mandir}/man3/zproc.3*
 %{_mandir}/man3/zproxy.3*

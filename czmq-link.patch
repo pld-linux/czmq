@@ -1,11 +1,11 @@
---- czmq-4.2.0/Makefile.am.orig	2020-04-07 19:34:47.841128420 +0200
-+++ czmq-4.2.0/Makefile.am	2020-04-07 19:35:40.744175153 +0200
-@@ -15,7 +15,7 @@
+--- czmq-4.2.1/Makefile.am.orig	2024-06-02 19:17:27.116348884 +0200
++++ czmq-4.2.1/Makefile.am	2024-06-02 19:18:17.452742855 +0200
+@@ -16,7 +16,7 @@ AM_CPPFLAGS = \
      ${libmicrohttpd_CFLAGS} \
      -I$(srcdir)/include
  
--project_libs = ${libzmq_LIBS} ${uuid_LIBS} ${systemd_LIBS} ${lz4_LIBS} ${libcurl_LIBS} ${libmicrohttpd_LIBS}
-+project_libs = ${libzmq_LIBS} ${uuid_LIBS} ${systemd_LIBS} ${lz4_LIBS} ${libcurl_LIBS} ${libmicrohttpd_LIBS} -lpthread
+-project_libs = ${libzmq_LIBS} ${uuid_LIBS} ${systemd_LIBS} ${lz4_LIBS} ${libcurl_LIBS} ${nss_LIBS} ${libmicrohttpd_LIBS}
++project_libs = ${libzmq_LIBS} ${uuid_LIBS} ${systemd_LIBS} ${lz4_LIBS} ${libcurl_LIBS} ${nss_LIBS} ${libmicrohttpd_LIBS} -lpthread
  
  SUBDIRS = doc
  SUBDIRS += include

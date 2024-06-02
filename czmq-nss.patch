@@ -1,0 +1,57 @@
+zdigest.c uses HAVE_LIBNSS while configure/cmake defines HAVE_NSS
+--- czmq-4.2.1/src/zdigest.c.orig	2021-01-17 15:29:08.000000000 +0100
++++ czmq-4.2.1/src/zdigest.c	2024-06-02 19:44:50.274113801 +0200
+@@ -24,7 +24,7 @@
+ */
+ 
+ #include "czmq_classes.h"
+-#ifdef HAVE_LIBNSS
++#ifdef HAVE_NSS
+ #include <secoid.h>
+ #include <sechash.h>
+ #define SHA_DIGEST_LENGTH 20
+@@ -36,7 +36,7 @@
+ //  Structure of our class
+ 
+ struct _zdigest_t {
+-#ifdef HAVE_LIBNSS
++#ifdef HAVE_NSS
+     HASHContext *context;       //  Digest context
+     bool begun;                 //  Calculating has already started
+ #else
+@@ -59,7 +59,7 @@ zdigest_new (void)
+ {
+     zdigest_t *self = (zdigest_t *) zmalloc (sizeof (zdigest_t));
+     assert (self);
+-#ifdef HAVE_LIBNSS
++#ifdef HAVE_NSS
+     HASH_HashType type = HASH_GetHashTypeByOidTag (SEC_OID_SHA1);
+     self->context = HASH_Create (type);
+     assert (self->context);
+@@ -79,7 +79,7 @@ zdigest_destroy (zdigest_t **self_p)
+     assert (self_p);
+     if (*self_p) {
+         zdigest_t *self = *self_p;
+-#ifdef HAVE_LIBNSS
++#ifdef HAVE_NSS
+         HASH_Destroy (self->context);
+ #endif
+         freen (self);
+@@ -97,7 +97,7 @@ zdigest_update (zdigest_t *self, const b
+     //  Calling this after zdigest_data() is illegal use of the API
+     assert (self);
+     assert (!self->final);
+-#ifdef HAVE_LIBNSS
++#ifdef HAVE_NSS
+     if (!self->begun) {
+         HASH_Begin (self->context);
+         self->begun = true;
+@@ -118,7 +118,7 @@ zdigest_data (zdigest_t *self)
+ {
+     assert (self);
+     if (!self->final) {
+-#ifdef HAVE_LIBNSS
++#ifdef HAVE_NSS
+         unsigned int len;
+         HASH_End (self->context, self->hash, &len, SHA_DIGEST_LENGTH);
+ #else
